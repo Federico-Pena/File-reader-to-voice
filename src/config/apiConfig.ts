@@ -4,7 +4,11 @@ const API_URL =
     : '/'
 
 const CORS_SETTINGS = {
-  origin: ['http://localhost:5173', 'https://lector-de-archivos.vercel.app'],
+  origin: [
+    'http://localhost:1234',
+    'http://localhost:5173',
+    'https://lector-de-archivos.vercel.app'
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
   // maxAge: 3600
@@ -13,8 +17,8 @@ const CORS_SETTINGS = {
   // preflightContinue: true,
 }
 const API_ROUTES = {
-  someRoutes: {
-    route1: '/api/v1/upload-file'
+  uploadFile: {
+    uploadFile: '/api/v1/upload-file'
   }
 }
 export const apiConfig = {

@@ -4,8 +4,8 @@ import fileUploadController from '../controllers/fileUploadController'
 import { multerMemoryStorage } from '../middlewares/multer'
 const pdfReaderRouter = Router()
 
-const { route1 } = apiConfig.API_ROUTES.someRoutes
+const { uploadFile } = apiConfig.API_ROUTES.uploadFile
 
-pdfReaderRouter.post(route1, multerMemoryStorage, fileUploadController)
+pdfReaderRouter.post(uploadFile, multerMemoryStorage, fileUploadController)
 
 export default pdfReaderRouter

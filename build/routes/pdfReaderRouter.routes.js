@@ -8,6 +8,6 @@ const apiConfig_1 = require("../config/apiConfig");
 const fileUploadController_1 = __importDefault(require("../controllers/fileUploadController"));
 const multer_1 = require("../middlewares/multer");
 const pdfReaderRouter = (0, express_1.Router)();
-const { route1 } = apiConfig_1.apiConfig.API_ROUTES.someRoutes;
-pdfReaderRouter.post(route1, multer_1.multerMemoryStorage, fileUploadController_1.default);
+const { uploadFile } = apiConfig_1.apiConfig.API_ROUTES.uploadFile;
+pdfReaderRouter.post(uploadFile, multer_1.multerMemoryStorage, fileUploadController_1.default);
 exports.default = pdfReaderRouter;
