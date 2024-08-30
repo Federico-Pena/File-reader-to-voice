@@ -14,7 +14,7 @@ app.use(logger)
 
 app.use('/', express.static(path.resolve('./build/public')))
 app.use(pdfReaderRouter)
-app.use(
+app.get(
   '*',
 
   (req, res) => {
