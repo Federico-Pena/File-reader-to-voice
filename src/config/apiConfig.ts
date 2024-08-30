@@ -1,7 +1,7 @@
 const API_URL =
   process.env.NODE_ENV === 'development'
     ? `http://localhost:${process.env.PORT ?? 1234}`
-    : 'https://lector-de-archivos.vercel.app/'
+    : 'https://lector-de-archivos.vercel.app'
 
 const CORS_SETTINGS = {
   origin: ['http://localhost:5173', 'https://lector-de-archivos.vercel.app/'],
@@ -14,7 +14,7 @@ const CORS_SETTINGS = {
 }
 const API_ROUTES = {
   someRoutes: {
-    route1: '/api/v1/upload-file'
+    route1: `${API_URL}/api/v1/upload-file`
   }
 }
 export const apiConfig = {
