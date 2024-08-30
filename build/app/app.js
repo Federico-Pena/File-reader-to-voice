@@ -15,8 +15,8 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)(apiConfig_1.apiConfig.CORS_SETTINGS));
 app.use(logger_1.logger);
 app.use('/', express_1.default.static(node_path_1.default.resolve('./build/public')));
-app.use(pdfReaderRouter_routes_1.default);
 app.get('*', (req, res) => {
     return res.status(404).sendFile(node_path_1.default.resolve('./build/public/404.html'));
 });
+app.use(pdfReaderRouter_routes_1.default);
 exports.default = app;

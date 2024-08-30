@@ -13,13 +13,9 @@ app.use(cors(apiConfig.CORS_SETTINGS))
 app.use(logger)
 
 app.use('/', express.static(path.resolve('./build/public')))
+app.get('*', (req, res) => {
+  return res.status(404).sendFile(path.resolve('./build/public/404.html'))
+})
 app.use(pdfReaderRouter)
-app.get(
-  '*',
-
-  (req, res) => {
-    return res.status(404).sendFile(path.resolve('./build/public/404.html'))
-  }
-)
 
 export default app
