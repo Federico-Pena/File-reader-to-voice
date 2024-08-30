@@ -5,6 +5,7 @@ exports.apiConfig = void 0;
 const API_URL = process.env.NODE_ENV === 'development'
     ? `http://localhost:${(_a = process.env.PORT) !== null && _a !== void 0 ? _a : 1234}`
     : '/';
+const ACCEPTED_MIME_TYPES = ['application/pdf'];
 const CORS_SETTINGS = {
     origin: [
         'http://localhost:1234',
@@ -20,10 +21,12 @@ const CORS_SETTINGS = {
 };
 const API_ROUTES = {
     uploadFile: {
-        uploadFile: '/api/v1/upload-file'
+        uploadFile: '/api/v1/upload-file',
+        getMimeTypes: '/api/v1/get-mime-types'
     }
 };
 exports.apiConfig = {
+    ACCEPTED_MIME_TYPES,
     API_URL,
     PORT: (_b = process.env.PORT) !== null && _b !== void 0 ? _b : 1234,
     API_ROUTES,

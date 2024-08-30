@@ -11,10 +11,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const ApiError_1 = require("../ApiError/ApiError");
 const pdfProcessor_1 = require("../services/pdfProcessor");
+const apiConfig_1 = require("../config/apiConfig");
 const fileUploadController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (req.file === undefined || req.file.buffer === undefined) {
             throw new ApiError_1.ApiError('No se pudo leer el archivo.', 400);
+        }
+        if (!apiConfig_1.apiConfig.ACCEPTED_MIME_TYPES.includes(req.file.mimetype)) {
+            const mimeTypes = apiConfig_1.apiConfig.ACCEPTED_MIME_TYPES.map((type) => `"${type}"`).join(', ');
+            const msg = `Los formatos permitidos son: ${mimeTypes}.`;
+            throw new ApiError_1.ApiError(msg, 400);
         }
         let textToSend;
         const dataBuffer = req.file.buffer;

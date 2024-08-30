@@ -1,11 +1,19 @@
 import { Request, Response } from 'express'
 import { ApiError } from '../ApiError/ApiError'
 import { pdfProcessor } from '../services/pdfProcessor'
+import { apiConfig } from '../config/apiConfig'
 
 const fileUploadController = async (req: Request, res: Response) => {
   try {
     if (req.file === undefined || req.file.buffer === undefined) {
       throw new ApiError('No se pudo leer el archivo.', 400)
+    }
+    if (!apiConfig.ACCEPTED_MIME_TYPES.includes(req.file.mimetype)) {
+      const mimeTypes = apiConfig.ACCEPTED_MIME_TYPES.map(
+        (type) => `"${type}"`
+      ).join(', ')
+      const msg = `Los formatos permitidos son: ${mimeTypes}.`
+      throw new ApiError(msg, 400)
     }
     let textToSend
     const dataBuffer = req.file.buffer
