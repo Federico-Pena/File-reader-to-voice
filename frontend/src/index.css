@@ -1,0 +1,63 @@
+:root {
+  --bg-color: light-dark(#e2e2b6, #021526);
+  --text-color: light-dark(#000000, #ffffff);
+  --font-bold: poppins-bold;
+  --font-regular: poppins-regular;
+  font-family: var(--font-regular), system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+    sans-serif;
+  color-scheme: light dark;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  display: grid;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+button,
+select,
+input {
+  width: 100%;
+  margin: auto;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  background-color: light-dark(#bac8fd, #191919);
+  color: var(--text-color);
+  font-family: var(--font-bold);
+}
+button {
+  background-color: light-dark(#004d80, #000000);
+  transition: transform 0.6s;
+  color: white;
+  &:hover {
+    transform: scale(0.98);
+    transition: transform 0.2s;
+  }
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+@font-face {
+  font-family: poppins-regular;
+  src: url('/fonts/Poppins-Regular.ttf');
+  font-display: swap;
+}
+@font-face {
+  font-family: poppins-bold;
+  src: url('/fonts/Poppins-Bold.ttf');
+  font-display: swap;
+}

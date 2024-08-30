@@ -1,0 +1,13 @@
+{
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": ["./node_modules/ts-standard/eslintrc.json"],
+  "rules": {
+    "semi": "error",
+    "quotes": "error",
+    "comma-dangle": "error",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-misused-promises": "off"
+  }
+}

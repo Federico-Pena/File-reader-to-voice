@@ -1,0 +1,66 @@
+.articleText {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
+  .page-info {
+    text-align: end;
+    opacity: 0.7;
+  }
+  .text-output {
+    position: relative;
+    .word-span-simple {
+      position: relative;
+      background-color: transparent;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+      &:hover::after {
+        scale: var(--after-scale);
+      }
+      &::after {
+        content: "Presiona stop primero.";
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        scale: 0;
+        padding: 0.5rem 1rem;
+        pointer-events: none;
+        background-color: light-dark(white, black);
+        box-shadow: 0 0 5px light-dark(black, white);
+        color: light-dark(black, white);
+        transition: scale 0.2s ease-in-out;
+        border-radius: 0.5rem;
+        font-size: 12px;
+        text-wrap: nowrap;
+      }
+    }
+    .word-highlighted {
+      background-color: greenyellow;
+      color: #000;
+    }
+  }
+  .text-output > .word-span-simple {
+  }
+  .error {
+    color: rgb(255, 41, 41);
+    font-weight: bold;
+    margin: auto;
+  }
+  .loader {
+    margin: auto;
+    font-size: clamp(1rem, 2vw, 3rem);
+    background: linear-gradient(currentColor 0 0) 0 100%/0% 3px no-repeat;
+    animation: loader 2s linear infinite;
+  }
+  .loader:before {
+    content: "Extrayendo texto...";
+  }
+}
+
+@keyframes loader {
+  to {
+    background-size: 100% 3px;
+  }
+}

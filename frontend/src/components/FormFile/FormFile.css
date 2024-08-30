@@ -1,0 +1,20 @@
+form {
+  display: grid;
+  row-gap: 1rem;
+  label {
+    display: grid;
+    row-gap: 0.5rem;
+    #fileInput {
+      cursor: pointer;
+      transition: scale 0.6s;
+      display: grid;
+      &::file-selector-button {
+        display: none;
+      }
+      &:hover {
+        scale: 0.98;
+        transition: scale 0.2s;
+      }
+    }
+  }
+}

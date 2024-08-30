@@ -1,0 +1,112 @@
+.btns-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  label {
+    grid-column: 1/3;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    place-content: center;
+    column-gap: 0.5rem;
+    input {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 15px;
+      width: 100%;
+      background: #d3d3d3;
+      border-radius: 1rem;
+      outline: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      padding: 0.5rem;
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        background: #1b4242;
+        cursor: pointer;
+        outline: none;
+        transition: width 0.2s, height 0.2s;
+      }
+      &:hover {
+        opacity: 1;
+      }
+      &:focus::-webkit-slider-thumb {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+  .btn-play-pause,
+  .btn-cancel {
+    cursor: pointer;
+    margin: auto;
+    display: grid;
+    place-items: center;
+    padding: 0.5rem;
+    background-color: light-dark(#004d80, #000000);
+    color: white;
+    border-radius: 100%;
+    font-size: clamp(1.5rem, 3vw, 3rem);
+  }
+
+  .pagination-controls {
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    .icon-back-next,
+    .icon-back-prev {
+      display: grid;
+      place-items: center;
+      background-color: transparent;
+      color: var(--text-color);
+      font-size: clamp(1.5rem, 3vw, 3rem);
+      transition: scale 0.2s, background-color 0.2s;
+      &:disabled {
+        opacity: 0;
+        cursor: not-allowed;
+      }
+      &:hover {
+        scale: 0.98;
+        background-color: var(--bg-color);
+      }
+      span {
+        display: grid;
+        place-items: center;
+      }
+    }
+    .icon-back-next {
+      span {
+        transform: rotateY(180deg);
+      }
+    }
+    .pagination-container {
+      display: grid;
+      background-color: var(--bg-color);
+      border-radius: 1rem;
+      grid-template-columns: repeat(var(--total-pages), 1fr);
+      width: 100%;
+      overflow-x: auto;
+      padding: 0.5rem;
+      gap: 0.5rem;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      button {
+        padding: 0;
+        display: grid;
+        place-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        border: 1px solid var(--text-color);
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-family: var(--font-regular);
+      }
+    }
+  }
+}
