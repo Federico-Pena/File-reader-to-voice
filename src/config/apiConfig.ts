@@ -1,10 +1,10 @@
 const API_URL =
   process.env.NODE_ENV === 'development'
     ? `http://localhost:${process.env.PORT ?? 1234}`
-    : '/'
+    : 'https://lector-de-archivos.vercel.app/'
 
 const CORS_SETTINGS = {
-  origin: ['http://localhost:5173', '/'],
+  origin: ['http://localhost:5173', 'https://lector-de-archivos.vercel.app/'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
   // maxAge: 3600

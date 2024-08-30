@@ -2,7 +2,7 @@ const ERROR_TYPE = 'ApiError'
 const URL =
   import.meta.env.MODE === 'development'
     ? 'http://localhost:1234/api/v1/upload-file'
-    : '/api/v1/upload-file'
+    : 'https://lector-de-archivos.vercel.app/api/v1/upload-file'
 
 export const requestFile = async (file) => {
   try {
