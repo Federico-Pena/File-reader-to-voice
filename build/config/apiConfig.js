@@ -4,9 +4,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.apiConfig = void 0;
 const API_URL = process.env.NODE_ENV === 'development'
     ? `http://localhost:${(_a = process.env.PORT) !== null && _a !== void 0 ? _a : 1234}`
-    : 'https://lector-de-archivos.vercel.app';
+    : '/';
 const CORS_SETTINGS = {
-    origin: ['http://localhost:5173', 'https://lector-de-archivos.vercel.app/'],
+    origin: ['http://localhost:5173', 'https://lector-de-archivos.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
     // maxAge: 3600
@@ -16,7 +16,7 @@ const CORS_SETTINGS = {
 };
 const API_ROUTES = {
     someRoutes: {
-        route1: `${API_URL}/api/v1/upload-file`
+        route1: '/api/v1/upload-file'
     }
 };
 exports.apiConfig = {
