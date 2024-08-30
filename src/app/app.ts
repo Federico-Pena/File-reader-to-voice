@@ -12,10 +12,10 @@ app.use(express.json())
 app.use(cors(apiConfig.CORS_SETTINGS))
 app.use(logger)
 
-app.use('/', express.static(path.resolve('./dist/public')))
+app.use('/', express.static(path.resolve('./public')))
 app.use(pdfReaderRouter)
 app.use('*', (req, res) => {
-  return res.status(404).sendFile(path.resolve('./dist/public/404.html'))
+  return res.status(404).sendFile(path.resolve('./public/404.html'))
 })
 
 export default app
