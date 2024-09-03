@@ -10,7 +10,7 @@ const CORS_SETTINGS = {
     origin: [
         'http://localhost:1234',
         'http://localhost:5173',
-        'https://file-reader-to-voice.vercel.app'
+        'https://lectura-de-archivos.vercel.app'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
