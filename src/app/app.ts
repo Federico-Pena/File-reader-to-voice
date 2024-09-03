@@ -12,8 +12,8 @@ app.use(express.json())
 app.use(cors(apiConfig.CORS_SETTINGS))
 app.use(logger)
 
-app.use(express.static(path.resolve('./public')))
+app.use('/', express.static(path.resolve('./dist/public')))
 app.use(pdfReaderRouter)
-app.use('*', express.static(path.resolve('./public')))
+app.use('*', express.static(path.resolve('./dist/public')))
 
 export default app
