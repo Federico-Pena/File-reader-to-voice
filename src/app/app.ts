@@ -12,7 +12,6 @@ app.use(express.json())
 app.use(cors(apiConfig.CORS_SETTINGS))
 app.use(logger)
 const publicFilesPath = path.join(__dirname, '../public')
-console.log(publicFilesPath)
 
 app.use('/', express.static(publicFilesPath))
 app.use(pdfReaderRouter)
