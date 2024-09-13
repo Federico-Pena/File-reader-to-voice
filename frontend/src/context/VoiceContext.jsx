@@ -23,25 +23,41 @@ const VoiceProvider = ({ children }) => {
 
   useEffect(() => {
     const populateVoices = () => {
-      const availableVoices = window.speechSynthesis
-        .getVoices()
-        .filter((voice) => voice.lang.includes('es'))
-      dispatch({
-        type: ACTIONS_VOICES_TYPES.SET_VOICES,
-        payload: availableVoices
-      })
-      const stringData = window.localStorage.getItem('dataLastFile')
-      if (stringData !== null) {
-        const { selectedVoice } = JSON.parse(stringData)
-        if (selectedVoice)
-          dispatch({
-            type: ACTIONS_VOICES_TYPES.SET_VOICE,
-            payload: selectedVoice
-          })
+      const voices = window.speechSynthesis.getVoices()
+      if (voices.length > 0) {
+        const availableVoices = voices.filter((voice) =>
+          voice.lang.includes('es')
+        )
+        dispatch({
+          type: ACTIONS_VOICES_TYPES.SET_VOICES,
+          payload: availableVoices
+        })
+        const stringData = window.localStorage.getItem('dataLastFile')
+        if (stringData !== null) {
+          const { selectedVoice } = JSON.parse(stringData)
+          if (selectedVoice) {
+            dispatch({
+              type: ACTIONS_VOICES_TYPES.SET_VOICE,
+              payload: selectedVoice
+            })
+          } else {
+            dispatch({
+              type: ACTIONS_VOICES_TYPES.SET_VOICE,
+              payload: availableVoices[0]
+            })
+          }
+        }
+      }
+    }
+    const retryPopulateVoices = () => {
+      if (window.speechSynthesis.getVoices().length === 0) {
+        setTimeout(retryPopulateVoices, 1000)
+      } else {
+        populateVoices()
       }
     }
     window.speechSynthesis.onvoiceschanged = () => populateVoices()
-    populateVoices()
+    retryPopulateVoices()
   }, [])
 
   return (

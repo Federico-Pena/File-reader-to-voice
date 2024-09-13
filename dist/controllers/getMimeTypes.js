@@ -13,8 +13,9 @@ const apiConfig_1 = require("../config/apiConfig");
 const ApiError_1 = require("../ApiError/ApiError");
 const getMimeTypes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const clientMimeTypes = Object.values(apiConfig_1.apiConfig.ACCEPTED_MIME_TYPES).map((type) => type.client);
         return res.status(200).json({
-            data: apiConfig_1.apiConfig.ACCEPTED_MIME_TYPES
+            data: clientMimeTypes
         });
     }
     catch (error) {

@@ -9,11 +9,12 @@ import Compatibility from './components/Compatibility'
 function App() {
   const { error, loading } = useFileReaderContext()
   const { currentParagraphs } = useDataContext()
+  const navegador = speechSynthesisInWindow(navigator.userAgent)
 
-  if (speechSynthesisInWindow() !== true) {
+  if (speechSynthesisInWindow(navegador) === 'PC Firefox') {
     return (
       <main className="mainApp">
-        <section className="section-textOutput">
+        <section className="section-advice">
           <Compatibility />
         </section>
       </main>
@@ -22,6 +23,11 @@ function App() {
 
   return (
     <main className="mainApp">
+      {speechSynthesisInWindow(navegador) === 'Android no Edge' && (
+        <section className="section-advice">
+          <Compatibility />
+        </section>
+      )}
       <section className="section-formFile">
         <FormFile />
       </section>

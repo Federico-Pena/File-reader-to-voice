@@ -12,13 +12,19 @@
 
 .section-formFile,
 .section-selectVoice,
-.section-textOutput {
+.section-textOutput,
+.section-advice {
   display: grid;
   row-gap: 0.5rem;
   box-shadow: 5px 5px 10px 0px #00000099;
   padding: 1rem;
   border-radius: 0.5rem;
   background-color: light-dark(#ffffff, #1b4242);
+  h1 {
+    font-size: clamp(1rem, 1.5vw, 2rem);
+    text-align: center;
+  }
+
   h2 {
     text-align: center;
     font-family: var(--font-bold);
@@ -34,7 +40,7 @@
   position: sticky;
   top: 0rem;
   z-index: 2;
-  @media screen and (max-width: 768px) and (orientation: landscape) {
-    top: -40vh;
+  @media screen and (max-height: 400px) and (orientation: landscape) {
+    top: -30dvh;
   }
 }

@@ -15,7 +15,6 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)(apiConfig_1.apiConfig.CORS_SETTINGS));
 app.use(logger_1.logger);
 const publicFilesPath = node_path_1.default.join(__dirname, '../public');
-console.log(publicFilesPath);
 app.use('/', express_1.default.static(publicFilesPath));
 app.use(pdfReaderRouter_routes_1.default);
 app.use('*', express_1.default.static(publicFilesPath));

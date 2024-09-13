@@ -1,7 +1,7 @@
 import useFileReader from '@/hooks/useFileReader'
 import './FormFile.css'
 const FormFile = () => {
-  const { handleFileUpload, clientMimeTypes, inputMimeTypes } = useFileReader()
+  const { handleFileUpload, clientMimeTypes } = useFileReader()
 
   return (
     <>
@@ -18,8 +18,8 @@ const FormFile = () => {
             name="fileInput"
             id="fileInput"
             type="file"
-            accept={inputMimeTypes
-              .map((type) => `${type.toLowerCase()}`)
+            accept={clientMimeTypes
+              .map((type) => `.${type.toLowerCase()}`)
               .join(', ')}
             aria-label="Sube un archivo para leer"
           />

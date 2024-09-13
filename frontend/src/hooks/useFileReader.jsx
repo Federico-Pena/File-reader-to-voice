@@ -7,7 +7,6 @@ const useFileReader = () => {
   const { changeError, changeLoading } = useFileReaderContext()
   const { dispatch } = useDataContext()
   const [clientMimeTypes, setClientMimeTypes] = useState([])
-  const [inputMimeTypes, setInputMimeTypes] = useState([])
 
   useEffect(() => {
     ;(async () => {
@@ -16,10 +15,7 @@ const useFileReader = () => {
         changeError(error.message)
         return
       }
-      const clientMimeTypes = Object.values(data).map((type) => type.client)
-      const inputMimeTypes = Object.values(data).map((type) => type.server)
-      setClientMimeTypes(clientMimeTypes)
-      setInputMimeTypes(inputMimeTypes)
+      setClientMimeTypes(data)
     })()
   }, [changeError])
   const handleFileUpload = async (file) => {
@@ -54,8 +50,7 @@ const useFileReader = () => {
 
   return {
     handleFileUpload,
-    clientMimeTypes,
-    inputMimeTypes
+    clientMimeTypes
   }
 }
 export default useFileReader
