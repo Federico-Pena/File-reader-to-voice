@@ -1,4 +1,4 @@
-# file-reader-to-voice
+# lectura-de-archivos
 
 App to upload files and listen to them.
 

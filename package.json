@@ -1,8 +1,9 @@
 {
-  "name": "file-reader-to-voice",
+  "name": "lectura-de-archivos",
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
+    "start": "node dist/index.js",
     "dev": "node --watch --env-file .env -r ts-node/register src/index.ts",
     "test": "vitest",
     "build": "tsc",
