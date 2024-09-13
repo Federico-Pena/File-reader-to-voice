@@ -11,9 +11,11 @@ app.disable('x-powered-by')
 app.use(express.json())
 app.use(cors(apiConfig.CORS_SETTINGS))
 app.use(logger)
+const publicFilesPath = path.join(__dirname, '../public')
+console.log(publicFilesPath)
 
-app.use('/', express.static(path.resolve('./public')))
+app.use('/', express.static(publicFilesPath))
 app.use(pdfReaderRouter)
-app.use('*', express.static(path.resolve('./public')))
+app.use('*', express.static(publicFilesPath))
 
 export default app
