@@ -47,17 +47,16 @@ const VoiceProvider = ({ children }) => {
             })
           }
         }
+      }else{
+
+        retryPopulateVoices()
       }
     }
     const retryPopulateVoices = () => {
-      if (window.speechSynthesis.getVoices().length === 0) {
-        setTimeout(retryPopulateVoices, 1000)
-      } else {
-        populateVoices()
-      }
+      populateVoices()
     }
     window.speechSynthesis.onvoiceschanged = () => populateVoices()
-    retryPopulateVoices()
+    populateVoices()
   }, [])
 
   return (
