@@ -9,19 +9,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const apiConfig_1 = require("../config/apiConfig");
+exports.htmlProcessor = void 0;
+const html_to_text_1 = require("html-to-text");
 const ApiError_1 = require("../ApiError/ApiError");
-const getMimeTypes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const htmlProcessor = (htmlBuffer) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return res.status(200).json({
-            data: apiConfig_1.apiConfig.ACCEPTED_MIME_TYPES
-        });
+        const htmlText = htmlBuffer.toString('utf-8');
+        const text = (0, html_to_text_1.convert)(htmlText, { wordwrap: 130 });
+        if (text.trim().length === 0) {
+            throw new ApiError_1.ApiError('El archivo HTML está vacío o no se pudo extraer el texto.', 400);
+        }
+        return text.trim().split('\n\n');
     }
     catch (error) {
-        const apiError = new ApiError_1.ApiError('Error inesperado intentalo nuevamente.', 500);
-        return res.status(apiError.statusCode).json({
-            error: apiError
-        });
+        if (error instanceof ApiError_1.ApiError) {
+            throw error;
+        }
+        else {
+            throw new ApiError_1.ApiError('Error procesando el archivo HTML.', 500);
+        }
     }
 });
-exports.default = getMimeTypes;
+exports.htmlProcessor = htmlProcessor;

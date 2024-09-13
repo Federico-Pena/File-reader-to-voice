@@ -1,11 +1,11 @@
 import {
   useDataContext,
   useFileReaderContext,
-  useVoiceContext,
-} from "@/hooks/useUseContext";
-import "./TextOutput.css";
-import { ACTIONS_LOCAL_DATA_TYPES } from "@/context/localDataContextReducer";
-import { useEffect, useRef } from "react";
+  useVoiceContext
+} from '@/hooks/useUseContext'
+import './TextOutput.css'
+import { ACTIONS_LOCAL_DATA_TYPES } from '@/context/localDataContextReducer'
+import { useEffect, useRef } from 'react'
 
 const TextOutput = () => {
   const {
@@ -14,38 +14,39 @@ const TextOutput = () => {
     textParagraphs,
     readedTextIndex,
     nameFile,
-    dispatch,
-  } = useDataContext();
-  const { error, loading } = useFileReaderContext();
-  const { speaking } = useVoiceContext();
-  const wordRefs = useRef([]);
+    dispatch
+  } = useDataContext()
+  const { error, loading } = useFileReaderContext()
+  const { speaking } = useVoiceContext()
+  const wordRefs = useRef([])
   useEffect(() => {
     if (wordRefs.current[readedTextIndex]) {
       wordRefs.current[readedTextIndex].scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
+        behavior: 'smooth',
+        block: 'center'
+      })
     }
-  }, [readedTextIndex]);
+  }, [readedTextIndex])
 
-  const totalPages = textParagraphs.length;
-  const afterDisplay = speaking || window.speechSynthesis.pending ? 1 : 0;
+  const totalPages = textParagraphs.length
+  const afterDisplay = speaking || window.speechSynthesis.pending ? 1 : 0
+
   const setIndexReadedText = (index) => {
-    if (afterDisplay === 1) return;
+    if (afterDisplay === 1) return
     dispatch({
       type: ACTIONS_LOCAL_DATA_TYPES.SET_READED_TEXT_INDEX,
-      payload: index,
-    });
-  };
+      payload: index
+    })
+  }
 
   const renderTextWithHighlight = (paragraph) => {
-    const words = paragraph.split("");
-    wordRefs.current = [];
+    const words = paragraph.split('')
+    wordRefs.current = []
     return words.map((word, index) => {
       const className =
         index <= readedTextIndex
-          ? "word-span-simple word-highlighted"
-          : "word-span-simple";
+          ? 'word-span-simple word-highlighted'
+          : 'word-span-simple'
       return (
         <span
           key={index}
@@ -55,9 +56,9 @@ const TextOutput = () => {
         >
           {word}
         </span>
-      );
-    });
-  };
+      )
+    })
+  }
 
   if (loading) {
     return (
@@ -65,7 +66,7 @@ const TextOutput = () => {
         <h2>Espere</h2>
         <span className="loader"></span>
       </article>
-    );
+    )
   }
 
   if (error) {
@@ -74,7 +75,7 @@ const TextOutput = () => {
         <h2 className="error">Ocurrió un error</h2>
         <p className="error">{error}</p>
       </article>
-    );
+    )
   }
 
   if (currentParagraphs) {
@@ -83,20 +84,20 @@ const TextOutput = () => {
         <samp className="page-info">
           Página: {currentPage + 1}/{totalPages}
         </samp>
-        <h3>{nameFile ?? "Texto extraído"}</h3>
+        <h3>{nameFile ?? 'Texto extraído'}</h3>
         <p
           className="text-output"
           style={{
-            "--after-scale": afterDisplay,
+            '--after-scale': afterDisplay
           }}
         >
           {renderTextWithHighlight(currentParagraphs)}
         </p>
       </article>
-    );
+    )
   }
 
-  return null;
-};
+  return null
+}
 
-export default TextOutput;
+export default TextOutput

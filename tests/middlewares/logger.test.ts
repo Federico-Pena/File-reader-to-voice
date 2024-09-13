@@ -1,14 +1,12 @@
 import supertest from 'supertest'
 import { afterAll, describe, expect, test, vi } from 'vitest'
-import app from '../../src/app/app'
 import { apiConfig } from '../../src/config/apiConfig'
+import app from '../../src/app/app'
 import { colors } from '../../src/middlewares/logger'
-
-const apiUrl = apiConfig.API_ROUTES.someRoutes.route1
+const apiUrl = apiConfig.API_ROUTES.uploadFile.getMimeTypes
 
 describe('Logger Middleware', () => {
   const logSpy = vi.spyOn(console, 'log')
-
   test('should log request details to the console', async () => {
     const { statusCode }: { statusCode: number } = await supertest(app)
       .get(apiUrl)

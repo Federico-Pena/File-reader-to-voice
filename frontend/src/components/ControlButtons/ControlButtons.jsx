@@ -2,43 +2,43 @@ import {
   IconBackNext,
   IconPause,
   IconPlay,
-  IconStop,
-} from "@/components/Icons/Icons";
-import "./ControlButtons.css";
-import { useDataContext, useVoiceContext } from "@/hooks/useUseContext";
-import { useVoice } from "@/hooks/useVoice";
-import { ACTIONS_LOCAL_DATA_TYPES } from "@/context/localDataContextReducer";
-import { ACTIONS_VOICES_TYPES } from "@/context/voiceContextReducer";
+  IconStop
+} from '@/components/Icons/Icons'
+import './ControlButtons.css'
+import { useDataContext, useVoiceContext } from '@/hooks/useUseContext'
+import useVoice from '@/hooks/useVoice'
+import { ACTIONS_LOCAL_DATA_TYPES } from '@/context/localDataContextReducer'
+import { ACTIONS_VOICES_TYPES } from '@/context/voiceContextReducer'
 
 const ControlButtons = () => {
-  const { stop, play } = useVoice();
+  const { stop, play } = useVoice()
   const {
     dispatch: dispatchData,
     currentPage,
-    textParagraphs,
-  } = useDataContext();
-  const {
-    rateUtterance,
-    dispatch: dispatchVoice,
-    speaking,
-  } = useVoiceContext();
+    textParagraphs
+  } = useDataContext()
+  const { rateUtterance, dispatch: dispatchVoice, speaking } = useVoiceContext()
 
-  const totalPages = textParagraphs.length;
+  const totalPages = textParagraphs.length
   const setIndexReadedText = (index) => {
     dispatchData({
       type: ACTIONS_LOCAL_DATA_TYPES.SET_READED_TEXT_INDEX,
-      payload: index,
-    });
-  };
+      payload: index
+    })
+  }
 
   const handleChangePage = (page) => {
+    stop()
     dispatchData({
       type: ACTIONS_LOCAL_DATA_TYPES.SET_PAGE,
-      payload: page,
-    });
-    stop();
-    setIndexReadedText(0);
-  };
+      payload: page
+    })
+    dispatchData({
+      type: ACTIONS_LOCAL_DATA_TYPES.SET_CURRENT_PARAGRAPH,
+      payload: textParagraphs[page]
+    })
+    setIndexReadedText(0)
+  }
 
   return (
     <div className="btns-container">
@@ -51,34 +51,32 @@ const ControlButtons = () => {
           id="rate"
           value={rateUtterance}
           onChange={(e) => {
-            stop();
+            stop()
             dispatchVoice({
               type: ACTIONS_VOICES_TYPES.SET_RATE_UTTERANCE,
-              payload: e.target.value,
-            });
+              payload: e.target.value
+            })
           }}
         />
         {Number(rateUtterance ?? 1).toFixed(2)}x
       </label>
-      <span
+      <button
         className="btn-play-pause"
-        aria-label={speaking ? "Pausar" : "Reproducir"}
-        title={speaking ? "Pausar" : "Reproducir"}
-        role="img"
-        onClick={play}
+        aria-label={speaking ? 'Pausar' : 'Reproducir'}
+        title={speaking ? 'Pausar' : 'Reproducir'}
+        onClick={() => play()}
       >
         {speaking ? <IconPause /> : <IconPlay />}
-      </span>
-      <span
+      </button>
+      <button
         className="btn-cancel"
         aria-label="Detener"
         title="Detener"
-        role="img"
         onClick={stop}
-        disabled={!speaking}
+        disabled={!speaking && !window.speechSynthesis.pending}
       >
         <IconStop />
-      </span>
+      </button>
       {totalPages > 0 ? (
         <div className="pagination-controls">
           <button
@@ -89,12 +87,12 @@ const ControlButtons = () => {
             aria-label="Anterior"
           >
             <span aria-label="Anterior" role="img">
-              <IconBackNext />
+              <IconBackNext aria-label="Anterior" />
             </span>
           </button>
           <div
             className="pagination-container"
-            style={{ "--total-pages": totalPages }}
+            style={{ '--total-pages': totalPages }}
           >
             {totalPages > 0 ? (
               Array.from({ length: totalPages }).map((page, index) => (
@@ -142,6 +140,6 @@ const ControlButtons = () => {
         </div>
       ) : null}
     </div>
-  );
-};
-export default ControlButtons;
+  )
+}
+export default ControlButtons

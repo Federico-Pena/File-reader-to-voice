@@ -8,20 +8,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const apiConfig_1 = require("../config/apiConfig");
+exports.docxProcessor = void 0;
+const mammoth_1 = __importDefault(require("mammoth"));
 const ApiError_1 = require("../ApiError/ApiError");
-const getMimeTypes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const docxProcessor = (docxBuffer) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return res.status(200).json({
-            data: apiConfig_1.apiConfig.ACCEPTED_MIME_TYPES
-        });
+        const { value: text } = yield mammoth_1.default.extractRawText({ buffer: docxBuffer });
+        if (text.trim().length === 0) {
+            throw new ApiError_1.ApiError('El archivo DOCX está vacío o no se pudo extraer el texto.', 400);
+        }
+        return text.trim().split('\n\n');
     }
     catch (error) {
-        const apiError = new ApiError_1.ApiError('Error inesperado intentalo nuevamente.', 500);
-        return res.status(apiError.statusCode).json({
-            error: apiError
-        });
+        console.error('Error procesando DOCX:', error.message);
+        throw new ApiError_1.ApiError('Error procesando el archivo DOCX.', 500);
     }
 });
-exports.default = getMimeTypes;
+exports.docxProcessor = docxProcessor;

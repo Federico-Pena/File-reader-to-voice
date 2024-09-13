@@ -34,4 +34,7 @@
   position: sticky;
   top: 0rem;
   z-index: 2;
+  @media screen and (max-width: 768px) and (orientation: landscape) {
+    top: -40vh;
+  }
 }

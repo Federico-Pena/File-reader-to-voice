@@ -1,42 +1,44 @@
 import { Request, Response } from 'express'
 import { ApiError } from '../ApiError/ApiError'
-import { pdfProcessor } from '../services/pdfProcessor'
 import { apiConfig } from '../config/apiConfig'
+import { switchServices } from '../services/switchServices'
 
 const fileUploadController = async (req: Request, res: Response) => {
   try {
     if (req.file === undefined || req.file.buffer === undefined) {
       throw new ApiError('No se pudo leer el archivo.', 400)
     }
-    if (!apiConfig.ACCEPTED_MIME_TYPES.includes(req.file.mimetype)) {
-      const mimeTypes = apiConfig.ACCEPTED_MIME_TYPES.map(
-        (type) => `"${type}"`
-      ).join(', ')
-      const msg = `Los formatos permitidos son: ${mimeTypes}.`
+
+    const mimeTypes = Object.values(apiConfig.ACCEPTED_MIME_TYPES).map(
+      (type) => type.server
+    )
+
+    if (!mimeTypes.includes(req.file.mimetype)) {
+      const clientMimeTypes = Object.values(apiConfig.ACCEPTED_MIME_TYPES)
+        .map((type) => `"${type.client}"`)
+        .join(', ')
+      const msg = `Los formatos permitidos son: ${clientMimeTypes}.`
       throw new ApiError(msg, 400)
     }
-    let textToSend
+
     const dataBuffer = req.file.buffer
-    switch (req.file.mimetype) {
-      case 'application/pdf':
-        textToSend = await pdfProcessor(dataBuffer)
-        break
-      default:
-        throw new ApiError('Tipo de archivo no soportado.', 415)
-    }
+    const textToSend = await switchServices(req.file.mimetype, dataBuffer)
 
     if (textToSend === undefined || textToSend.length === 0) {
       throw new ApiError('No se pudo extraer el texto del archivo.', 400)
     }
+
     return res.status(200).json({
       data: textToSend
     })
   } catch (error) {
-    console.log(error)
     if (error instanceof ApiError) {
-      return res.status(error.statusCode).json({ error })
+      return res.status(error.statusCode).json({
+        error
+      })
     }
-    return res.status(500).json({ error: { message: 'Error inesperado.' } })
+    const apiError = new ApiError('Error inesperado intentalo nuevamente.', 500)
+    return res.status(apiError.statusCode).json({ error: apiError })
   }
 }
 

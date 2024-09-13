@@ -12,13 +12,15 @@
   display: grid;
 }
 
-*,
-*::before,
-*::after {
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   word-break: break-word;
+}
+::after,
+::before {
+  box-sizing: border-box;
 }
 body {
   position: relative;
@@ -47,11 +49,25 @@ button {
     transform: scale(0.98);
     transition: transform 0.2s;
   }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+
+input:focus {
+  outline: 1px solid #fa8072;
 }
+input[type='range']:focus {
+  outline: 1px solid #fa8072;
+}
+button:focus {
+  outline: 1px solid #fa8072;
+}
+select:focus {
+  outline: 1px solid #fa8072;
+}
+
 @font-face {
   font-family: poppins-regular;
   src: url('/fonts/Poppins-Regular.ttf');

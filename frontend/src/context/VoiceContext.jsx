@@ -7,7 +7,7 @@ import {
 const initialState = {
   /**
    *
-   * @param {{type: String, payload: any}} type: ACTIONS_VOICES_TYPES
+   * @param {{type: string, payload: any}} type: ACTIONS_VOICES_TYPES
    */
   // eslint-disable-next-line no-unused-vars
   dispatch: ({ type: ACTIONS_VOICES_TYPES, payload }) => {},
@@ -40,7 +40,7 @@ const VoiceProvider = ({ children }) => {
           })
       }
     }
-    window.speechSynthesis.onvoiceschanged = populateVoices
+    window.speechSynthesis.onvoiceschanged = () => populateVoices()
     populateVoices()
   }, [])
 

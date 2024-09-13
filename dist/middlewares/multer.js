@@ -26,6 +26,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.multerMemoryStorage = void 0;
 const multer_1 = __importStar(require("multer"));
 const newMemoryStorage = (0, multer_1.memoryStorage)();
+// Configurar multer con fileFilter para forzar el MIME de archivos .md
 exports.multerMemoryStorage = (0, multer_1.default)({
-    storage: newMemoryStorage
+    storage: newMemoryStorage,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype === 'application/octet-stream' &&
+            file.originalname.endsWith('.md')) {
+            file.mimetype = '.md';
+        }
+        cb(null, true);
+    }
 }).single('file');

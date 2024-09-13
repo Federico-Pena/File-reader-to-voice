@@ -1,10 +1,11 @@
-export function IconBackNext() {
+export function IconBackNext(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
+      width="28px"
+      height="28px"
       viewBox="0 0 2048 2048"
+      {...props}
     >
       <path
         fill="currentColor"
@@ -16,9 +17,11 @@ export function IconBackNext() {
 export function IconPlay() {
   return (
     <svg
+      aria-label="Iniciar lectura"
+      title="Iniciar lectura"
       xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
+      width="28px"
+      height="28px"
       viewBox="0 0 512 512"
     >
       <path
@@ -31,9 +34,11 @@ export function IconPlay() {
 export function IconPause(props) {
   return (
     <svg
+      aria-label="Pausar"
+      title="Pausar"
       xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
+      width="28px"
+      height="28px"
       viewBox="0 0 24 24"
       {...props}
     >
@@ -44,9 +49,11 @@ export function IconPause(props) {
 export function IconStop() {
   return (
     <svg
+      aria-label="Detener"
+      title="Detener"
       xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
+      width="28px"
+      height="28px"
       viewBox="0 0 512 512"
     >
       <path

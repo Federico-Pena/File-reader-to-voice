@@ -9,19 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const apiConfig_1 = require("../config/apiConfig");
+exports.txtProcessor = void 0;
 const ApiError_1 = require("../ApiError/ApiError");
-const getMimeTypes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const txtProcessor = (txtBuffer) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return res.status(200).json({
-            data: apiConfig_1.apiConfig.ACCEPTED_MIME_TYPES
-        });
+        const text = txtBuffer.toString('utf-8').trim();
+        if (text.length === 0) {
+            throw new ApiError_1.ApiError('El archivo TXT está vacío o no se pudo extraer el texto.', 400);
+        }
+        return text.split('\n\n');
     }
     catch (error) {
-        const apiError = new ApiError_1.ApiError('Error inesperado intentalo nuevamente.', 500);
-        return res.status(apiError.statusCode).json({
-            error: apiError
-        });
+        if (error instanceof ApiError_1.ApiError) {
+            throw error;
+        }
+        else {
+            throw new ApiError_1.ApiError('Error procesando el archivo TXT.', 500);
+        }
     }
 });
-exports.default = getMimeTypes;
+exports.txtProcessor = txtProcessor;

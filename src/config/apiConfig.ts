@@ -2,7 +2,33 @@ const API_URL =
   process.env.NODE_ENV === 'development'
     ? `http://localhost:${process.env.PORT ?? 1234}`
     : '/'
-const ACCEPTED_MIME_TYPES = ['application/pdf']
+const ACCEPTED_MIME_TYPES = {
+  pdf: {
+    server: 'application/pdf',
+    client: 'pdf'
+  },
+  docx: {
+    server:
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    client: 'docx'
+  },
+  txt: {
+    server: 'text/plain',
+    client: 'txt'
+  },
+  rtf: {
+    server: 'application/rtf',
+    client: 'rtf'
+  },
+  html: {
+    server: 'text/html',
+    client: 'html'
+  },
+  md: {
+    server: '.md',
+    client: 'md'
+  }
+}
 
 const CORS_SETTINGS = {
   origin: [

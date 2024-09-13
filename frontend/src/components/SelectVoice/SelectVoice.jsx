@@ -1,21 +1,20 @@
-import { useVoice } from "@/hooks/useVoice";
-import "./SelectVoice.css";
-import { useVoiceContext } from "@/hooks/useUseContext";
+import useVoice from '@/hooks/useVoice'
+import './SelectVoice.css'
+import { useVoiceContext } from '@/hooks/useUseContext'
 const SelectVoice = () => {
-  // const { voices, selectedVoice } = useVoiceContext()
-  const { changeVoice } = useVoice();
-  const { selectedVoice, voices } = useVoiceContext();
+  const { changeVoice } = useVoice()
+  const { selectedVoice, voices } = useVoiceContext()
   const handleVoiceChange = (event) => {
-    const voiceName = event.target.value;
-    changeVoice(voiceName);
-  };
+    const voiceName = event.target.value
+    changeVoice(voiceName)
+  }
   return (
     <>
       <h2>Opciones de Lectura</h2>
       <label htmlFor="voiceSelect">Selecciona una voz:</label>
       <select
         id="voiceSelect"
-        value={selectedVoice ? selectedVoice.name : "Voces"}
+        value={selectedVoice ? selectedVoice.name : 'Voces'}
         onChange={handleVoiceChange}
         aria-label="Selecciona la voz para la lectura en voz alta"
       >
@@ -26,6 +25,6 @@ const SelectVoice = () => {
         ))}
       </select>
     </>
-  );
-};
-export default SelectVoice;
+  )
+}
+export default SelectVoice

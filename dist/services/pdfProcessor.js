@@ -16,27 +16,37 @@ exports.pdfProcessor = void 0;
 const pdf_parse_1 = __importDefault(require("pdf-parse"));
 const ApiError_1 = require("../ApiError/ApiError");
 const tesseract_js_1 = __importDefault(require("tesseract.js"));
-const pdf_img_convert_1 = __importDefault(require("pdf-img-convert"));
+const pdf_to_png_converter_1 = require("pdf-to-png-converter");
 const pdfProcessor = (pdfBuffer) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield (0, pdf_parse_1.default)(pdfBuffer, {});
-    const pdfParseFail = data.text.trim().length !== 0;
-    if (pdfParseFail) {
-        return data.text.trim().split('\n\n');
+    try {
+        const data = yield (0, pdf_parse_1.default)(pdfBuffer, {});
+        const pdfParseText = data.text.trim().length !== 0;
+        if (pdfParseText) {
+            return data.text.trim().split('\n\n');
+        }
+        const images = yield (0, pdf_to_png_converter_1.pdfToPng)(pdfBuffer);
+        const textOCR = yield extractTextWithOCR(images);
+        const pdfOCRTextFail = textOCR === null || textOCR.length === 0;
+        if (pdfOCRTextFail) {
+            throw new ApiError_1.ApiError('Error procesando el PDF.', 500);
+        }
+        return textOCR;
     }
-    const document = yield pdf_img_convert_1.default.convert(pdfBuffer);
-    const textOCR = yield extractTextWithOCR(document);
-    const pdfOCRTextFail = textOCR === null || textOCR.length === 0;
-    if (pdfOCRTextFail) {
-        throw new ApiError_1.ApiError('Error procesando el PDF.', 500);
+    catch (error) {
+        if (error instanceof ApiError_1.ApiError) {
+            throw error;
+        }
+        else {
+            throw new ApiError_1.ApiError('Error procesando el PDF.', 500);
+        }
     }
-    return textOCR;
 });
 exports.pdfProcessor = pdfProcessor;
 const extractTextWithOCR = (images) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const ocrText = [];
         for (let page = 0; page < images.length; page++) {
-            const { data: { text } } = yield tesseract_js_1.default.recognize(images[page], 'spa', {
+            const { data: { text } } = yield tesseract_js_1.default.recognize(images[page].content, 'spa', {
                 cacheMethod: 'tesseract://cache',
                 cachePath: 'tesseract://cache'
             });
@@ -47,7 +57,6 @@ const extractTextWithOCR = (images) => __awaiter(void 0, void 0, void 0, functio
         return ocrText;
     }
     catch (error) {
-        console.log('OCR error:', error.message);
         return null;
     }
 });

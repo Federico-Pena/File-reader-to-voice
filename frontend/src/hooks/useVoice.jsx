@@ -1,105 +1,76 @@
-import { ACTIONS_LOCAL_DATA_TYPES } from "@/context/localDataContextReducer";
-import { ACTIONS_VOICES_TYPES } from "@/context/voiceContextReducer";
-import { useDataContext, useVoiceContext } from "@/hooks/useUseContext";
-import { useEffect } from "react";
+import { ACTIONS_LOCAL_DATA_TYPES } from '@/context/localDataContextReducer'
+import { ACTIONS_VOICES_TYPES } from '@/context/voiceContextReducer'
+import { useDataContext, useVoiceContext } from '@/hooks/useUseContext'
+import { useEffect } from 'react'
+import useSpeechSynthesisUtterance from './useSpeechSynthesisUtterance'
 
-export const useVoice = () => {
+const useVoice = () => {
+  const { createUtterance } = useSpeechSynthesisUtterance()
   const {
     dispatch: dataDispatch,
-    currentParagraphs,
-    readedTextIndex,
-  } = useDataContext();
-  const {
-    dispatch: voiceDispatch,
-    rateUtterance,
-    selectedVoice,
-    speaking,
-  } = useVoiceContext();
+    currentPage,
+    currentParagraphs
+  } = useDataContext()
+  const { dispatch: voiceDispatch, speaking } = useVoiceContext()
+  useEffect(() => {
+    window.speechSynthesis.cancel()
+  }, [])
 
   useEffect(() => {
-    window.speechSynthesis.cancel();
-  }, []);
+    play()
+  }, [currentPage])
 
   const changeVoice = (newVoice) => {
-    stop();
+    stop()
     dataDispatch({
       type: ACTIONS_LOCAL_DATA_TYPES.SET_VOICE_NAME,
-      payload: newVoice,
-    });
+      payload: newVoice
+    })
     voiceDispatch({
       type: ACTIONS_VOICES_TYPES.SET_VOICE,
-      payload: newVoice,
-    });
-  };
+      payload: newVoice
+    })
+  }
 
   const play = () => {
-    const textToRead = currentParagraphs
-      .split("")
-      .slice(readedTextIndex)
-      .join("")
-      .trim();
-    const utterance = new SpeechSynthesisUtterance(textToRead);
-    utterance.voice = selectedVoice;
-    utterance.rate = rateUtterance;
-    const handleUtteranceEndOrError = () => {
-      voiceDispatch({
-        type: ACTIONS_VOICES_TYPES.SET_SPEAKING,
-        payload: false,
-      });
-      dataDispatch({
-        type: ACTIONS_LOCAL_DATA_TYPES.SET_READED_TEXT_INDEX,
-        payload: 0,
-      });
-    };
-    const handleUtteranceOnboundary = (event) => {
-      if (event.name === "word") {
-        dataDispatch({
-          type: ACTIONS_LOCAL_DATA_TYPES.SET_READED_TEXT_INDEX,
-          payload: readedTextIndex + event.charIndex,
-        });
-      }
-    };
-
-    utterance.onboundary = handleUtteranceOnboundary;
-    utterance.onerror = handleUtteranceEndOrError;
-    utterance.onend = handleUtteranceEndOrError;
-    window.speechSynthesis.speak(utterance);
-    voiceDispatch({
-      type: ACTIONS_VOICES_TYPES.SET_SPEAKING,
-      payload: true,
-    });
-    speaking ? pause() : resume();
-  };
+    if (!currentParagraphs) return
+    const utterance = createUtterance()
+    window.speechSynthesis.speak(utterance)
+    speaking ? pause() : resume()
+  }
 
   const pause = () => {
-    window.speechSynthesis.pause();
+    window.speechSynthesis.pause()
     voiceDispatch({
       type: ACTIONS_VOICES_TYPES.SET_SPEAKING,
-      payload: false,
-    });
-  };
+      payload: false
+    })
+  }
+
   const resume = () => {
-    window.speechSynthesis.resume();
+    window.speechSynthesis.resume()
     voiceDispatch({
       type: ACTIONS_VOICES_TYPES.SET_SPEAKING,
-      payload: true,
-    });
-  };
+      payload: true
+    })
+  }
+
   const stop = () => {
-    window.speechSynthesis.cancel();
+    window.speechSynthesis.cancel()
     voiceDispatch({
       type: ACTIONS_VOICES_TYPES.SET_SPEAKING,
-      payload: false,
-    });
+      payload: false
+    })
     dataDispatch({
       type: ACTIONS_LOCAL_DATA_TYPES.SET_READED_TEXT_INDEX,
-      payload: 0,
-    });
-  };
+      payload: 0
+    })
+  }
 
   return {
     changeVoice,
     play,
-    stop,
-  };
-};
+    stop
+  }
+}
+export default useVoice
