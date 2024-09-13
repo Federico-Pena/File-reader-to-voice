@@ -8,6 +8,8 @@ const SelectVoice = () => {
     const voiceName = event.target.value
     changeVoice(voiceName)
   }
+  const aviableVoices = voices.length > 0 ? voices : window.speechSynthesis.getVoices().filter((voice) =>
+    voice.lang.includes('es'))
   return (
     <>
       <h2>Opciones de Lectura</h2>
@@ -18,14 +20,11 @@ const SelectVoice = () => {
         onChange={handleVoiceChange}
         aria-label="Selecciona la voz para la lectura en voz alta"
       >
-        {voices.length > 0 ?
-          voices.map((voice) => (
+        {aviableVoices.map((voice) => (
           <option key={voice.name} value={voice.name}>
             {voice.name}
           </option>
-        )): window.speechSynthesis.getVoices().filter((voice) =>
-          voice.lang.includes('es')
-        )}
+        ))}
       </select>
     </>
   )
