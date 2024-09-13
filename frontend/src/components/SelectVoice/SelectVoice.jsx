@@ -11,19 +11,23 @@ const SelectVoice = () => {
   return (
     <>
       <h2>Opciones de Lectura</h2>
-      <label htmlFor="voiceSelect">Selecciona una voz:</label>
-      <select
-        id="voiceSelect"
-        value={selectedVoice ? selectedVoice.name : 'Voces'}
-        onChange={handleVoiceChange}
-        aria-label="Selecciona la voz para la lectura en voz alta"
-      >
-        {voices.map((voice) => (
-          <option key={voice.name} value={voice.name}>
-            {voice.name}
-          </option>
-        ))}
-      </select>
+      {voices.length > 0 ? (
+        <>
+          <label htmlFor="voiceSelect">Selecciona una voz:</label>
+          <select
+            id="voiceSelect"
+            value={selectedVoice ? selectedVoice.name : 'Voces'}
+            onChange={handleVoiceChange}
+            aria-label="Selecciona la voz para la lectura en voz alta"
+          >
+            {voices.map((voice) => (
+              <option key={voice.name} value={voice.name}>
+                {voice.name}
+              </option>
+            ))}
+          </select>
+        </>
+      ) : null}
     </>
   )
 }

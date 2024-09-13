@@ -23,9 +23,7 @@ const VoiceProvider = ({ children }) => {
 
   useEffect(() => {
     const populateVoices = async () => {
-      const voices = await getVoices()
-      console.log(voices.length);
-      
+      const voices = window.speechSynthesis.getVoices()
       if (voices.length > 0) {
         const availableVoices = voices.filter((voice) =>
           voice.lang.includes('es')
@@ -51,21 +49,7 @@ const VoiceProvider = ({ children }) => {
         }
       }
     }
-    const getVoices = ()=> {
-      return new Promise(
-          function (resolve, reject) {
-              let synth = window.speechSynthesis;
-              let id;
-              id = setInterval(() => {
-                  if (synth.getVoices().length !== 0) {
-                      resolve(synth.getVoices());
-                      clearInterval(id);
-                  }
-              }, 10);
-          }
-      )
-  }
-  
+
     window.speechSynthesis.onvoiceschanged = () => populateVoices()
     populateVoices()
   }, [])
