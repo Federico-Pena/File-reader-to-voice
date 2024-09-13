@@ -57,7 +57,7 @@ describe('switchServices', () => {
 
     const textContains = includesText(
       extractedText,
-      'It is an example test rtf-file to RTF2XML bean for testing'
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec iaculis elit nec ante eleifend,'
     )
     expect(textContains).toBe(true)
   })
