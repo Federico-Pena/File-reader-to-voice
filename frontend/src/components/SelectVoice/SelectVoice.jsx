@@ -14,15 +14,18 @@ const SelectVoice = () => {
       <label htmlFor="voiceSelect">Selecciona una voz:</label>
       <select
         id="voiceSelect"
-        value={selectedVoice ? selectedVoice.name : 'Voces'}
+        value={selectedVoice?.name ?? 'Voces'}
         onChange={handleVoiceChange}
         aria-label="Selecciona la voz para la lectura en voz alta"
       >
-        {voices.map((voice) => (
+        {voices.length > 0 ?
+          voices.map((voice) => (
           <option key={voice.name} value={voice.name}>
             {voice.name}
           </option>
-        ))}
+        )): window.speechSynthesis.getVoices().filter((voice) =>
+          voice.lang.includes('es')
+        )}
       </select>
     </>
   )
