@@ -22,8 +22,10 @@ const VoiceProvider = ({ children }) => {
   const [state, dispatch] = useReducer(voiceContextReducer, initialState)
 
   useEffect(() => {
-    const populateVoices = () => {
-      const voices = window.speechSynthesis.getVoices()
+    const populateVoices = async () => {
+      const voices = await getVoices()
+      console.log(voices.length);
+      
       if (voices.length > 0) {
         const availableVoices = voices.filter((voice) =>
           voice.lang.includes('es')
@@ -49,13 +51,23 @@ const VoiceProvider = ({ children }) => {
         }
       }
     }
-    const retryPopulateVoices = () => {
-      if(window.speechSynthesis.onvoiceschanged !== undefined || window.speechSynthesis.onvoiceschanged !== null || window.speechSynthesis.getVoices().length === 0){
-       setTimeout(populateVoices, 3000)
-      }
-    }
+    const getVoices = ()=> {
+      return new Promise(
+          function (resolve, reject) {
+              let synth = window.speechSynthesis;
+              let id;
+              id = setInterval(() => {
+                  if (synth.getVoices().length !== 0) {
+                      resolve(synth.getVoices());
+                      clearInterval(id);
+                  }
+              }, 10);
+          }
+      )
+  }
+  
     window.speechSynthesis.onvoiceschanged = () => populateVoices()
-    retryPopulateVoices()
+    populateVoices()
   }, [])
 
   return (
