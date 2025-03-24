@@ -25,7 +25,9 @@ app.use(logger)
 const staticPath = path.join(__dirname, './frontend')
 console.log('staticPath', staticPath)
 
-app.use('/', express.static(staticPath))
+app.use('/', (req, res) => {
+  res.send('Hello World!')
+})
 
 // Use one router
 app.use(fileReader)
