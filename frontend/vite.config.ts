@@ -21,28 +21,28 @@ export default defineConfig({
         lang: 'es',
         icons: [
           {
-            src: 'assets/icons/favicon.ico',
+            src: '/favicon.ico',
             type: 'image/x-icon',
             sizes: '16x16 32x32'
           },
           {
-            src: 'assets/icons/icon-192.png',
+            src: '/icon-192.png',
             type: 'image/png',
             sizes: '192x192'
           },
           {
-            src: 'assets/icons/icon-512.png',
+            src: '/icon-512.png',
             type: 'image/png',
             sizes: '512x512'
           },
           {
-            src: 'assets/icons/icon-192-maskable.png',
+            src: '/icon-192-maskable.png',
             type: 'image/png',
             sizes: '192x192',
             purpose: 'maskable'
           },
           {
-            src: 'assets/icons/icon-512-maskable.png',
+            src: '/icon-512-maskable.png',
             type: 'image/png',
             sizes: '512x512',
             purpose: 'maskable'

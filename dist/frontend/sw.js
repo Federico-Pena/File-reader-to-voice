@@ -81,9 +81,6 @@ define(['./workbox-54d0af47'], (function (workbox) { 'use strict';
     "url": "assets/index-BojQLqmw.js",
     "revision": null
   }, {
-    "url": "assets/index-CQu5ojyi.js",
-    "revision": null
-  }, {
     "url": "assets/index-D5W2qPfI.css",
     "revision": null
   }, {
@@ -93,8 +90,23 @@ define(['./workbox-54d0af47'], (function (workbox) { 'use strict';
     "url": "registerSW.js",
     "revision": "1872c500de691dce40960bb85481de07"
   }, {
+    "url": "favicon.ico",
+    "revision": "80aba1c541d640757bf03e95996961aa"
+  }, {
+    "url": "icon-192-maskable.png",
+    "revision": "a9d73c6ba5a410741d26ebc2daa02b92"
+  }, {
+    "url": "icon-192.png",
+    "revision": "f606241ebe501d16c94c0a0d7224db47"
+  }, {
+    "url": "icon-512-maskable.png",
+    "revision": "42bf09577f83f825f430f75390e674d9"
+  }, {
+    "url": "icon-512.png",
+    "revision": "fcb89ad6e2b1f3686e17e1bd6acfda3c"
+  }, {
     "url": "manifest.webmanifest",
-    "revision": "8c1cd0684f9a9393ea76becc3be82690"
+    "revision": "2676f96ff664c0d4f9b73d29852870af"
   }], {});
   workbox.cleanupOutdatedCaches();
   workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("index.html")));

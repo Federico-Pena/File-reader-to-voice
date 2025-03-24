@@ -18,12 +18,12 @@ app.use(express.json())
 // Enable CORS
 app.use(cors(apiConfig.CORS_SETTINGS))
 
-// Serve static files.
-const staticPath = path.join(cwd(), 'dist/frontend')
-console.log('staticPath', staticPath)
 // Log HTTP requests format.
 app.use(logger)
 
+// Serve static files.
+const staticPath = path.join(__filename, '/frontend')
+console.log('staticPath', staticPath)
 app.use('/', (req, res) => {
   res.send('Hello World!')
 })
