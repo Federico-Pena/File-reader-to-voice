@@ -23,6 +23,8 @@ app.use(logger)
 
 // Serve static files.
 const staticPath = path.join(__dirname, './frontend')
+console.log('staticPath', staticPath)
+
 app.use('/', express.static(staticPath))
 
 // Use one router
