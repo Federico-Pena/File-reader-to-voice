@@ -24,15 +24,15 @@ if (NODE_ENV === 'devexlopment') {
   esbuild
     .build({
       entryPoints: ['backend/src/index.ts'],
-      outfile: 'dist/index.js',
+      outfile: 'dist/index.cjs',
       bundle: true,
       minify: true,
       platform: 'node',
-      format: 'esm',
-      target: ['node16'],
-      banner: {
+      format: 'cjs',
+      target: ['node16']
+      /* banner: {
         js: 'import { createRequire } from "node:module"; const require = createRequire(import.meta.url);'
-      }
+      } */
     })
     .then(() => {
       console.log('Build successful')
