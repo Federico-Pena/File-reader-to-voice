@@ -27,8 +27,9 @@ if (NODE_ENV === 'development') {
       entryPoints: ['backend/src/index.ts'],
       outfile: 'dist/index.js',
       bundle: true,
+      minify: true,
       platform: 'node',
-      format: 'esm',
+      format: 'cjs',
       banner: {
         js: 'import { createRequire } from "node:module"; const require = createRequire(import.meta.url);'
       }
