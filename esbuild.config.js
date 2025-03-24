@@ -2,7 +2,7 @@
 import esbuild from 'esbuild'
 const NODE_ENV = process.env.NODE_ENV
 
-if (NODE_ENV === 'develxopment') {
+if (NODE_ENV === 'development') {
   const ctx = await esbuild.context({
     entryPoints: ['backend/src/**/*.ts'],
     format: 'esm',
@@ -28,10 +28,10 @@ if (NODE_ENV === 'develxopment') {
       bundle: true,
       minify: true,
       platform: 'node',
-      format: 'cjs'
-      /*    banner: {
+      format: 'esm',
+      banner: {
         js: 'import { createRequire } from "node:module"; const require = createRequire(import.meta.url);'
-      } */
+      }
     })
     .then(() => {
       console.log('Build successful')
