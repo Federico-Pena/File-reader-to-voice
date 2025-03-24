@@ -1,9 +1,8 @@
 // https://esbuild.github.io/getting-started/
 import esbuild from 'esbuild'
 const NODE_ENV = process.env.NODE_ENV
-console.log('NODE_ENV:', NODE_ENV)
 
-if (NODE_ENV === 'development') {
+if (NODE_ENV === 'develxopment') {
   const ctx = await esbuild.context({
     entryPoints: ['backend/src/**/*.ts'],
     format: 'esm',

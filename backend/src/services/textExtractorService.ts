@@ -34,9 +34,6 @@ export const extractTextWithPython = (
         try {
           if (extractedOutput.startsWith('{"error":') || extractedOutput.startsWith('{"pages":')) {
             const { pages, error }: { pages: Data[]; error: string } = JSON.parse(extractedOutput)
-            consoleStyler(error)
-            consoleStyler(pages)
-
             if (error) {
               reject(new Error(error))
             }
