@@ -27,7 +27,6 @@ if (NODE_ENV === 'development') {
       entryPoints: ['backend/src/index.ts'],
       outfile: 'dist/index.js',
       bundle: true,
-      minify: true,
       platform: 'node',
       format: 'esm',
       banner: {
