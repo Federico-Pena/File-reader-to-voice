@@ -24,11 +24,12 @@ if (NODE_ENV === 'devexlopment') {
   esbuild
     .build({
       entryPoints: ['backend/src/index.ts'],
-      outfile: 'dist/index.cjs',
+      outfile: 'dist/index.js',
       bundle: true,
       minify: true,
       platform: 'node',
-      format: 'cjs'
+      format: 'esm',
+      target: ['node16']
       /*  banner: {
         js: 'import { createRequire } from "node:module"; const require = createRequire(import.meta.url);'
       } */
