@@ -22,7 +22,7 @@ app.use(cors(apiConfig.CORS_SETTINGS))
 app.use(logger)
 
 // Serve static files.
-const staticPath = path.resolve('./frontend')
+const staticPath = path.join(__dirname, './frontend')
 app.use('/', express.static(staticPath))
 
 // Use one router
