@@ -22,10 +22,6 @@ File Reader is a web application that allows users to upload files, extract text
 ## Installation
 
 ```sh
-# Clone the repository
-git clone https://github.com/your-repo/file-reader.git
-cd file-reader
-
 # Install dependencies
 npm install
 
