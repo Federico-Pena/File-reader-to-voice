@@ -28,10 +28,10 @@ if (NODE_ENV === 'devexlopment') {
       bundle: true,
       minify: true,
       platform: 'node',
-      format: 'cjs',
-      banner: {
+      format: 'cjs'
+      /*  banner: {
         js: 'import { createRequire } from "node:module"; const require = createRequire(import.meta.url);'
-      }
+      } */
     })
     .then(() => {
       console.log('Build successful')
