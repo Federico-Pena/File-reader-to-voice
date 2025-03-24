@@ -1,12 +1,12 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import path from 'node:path'
-import { VitePWA } from 'vite-plugin-pwa'
+// import { VitePWA } from 'vite-plugin-pwa'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    react(),
-    VitePWA({
+    react()
+    /*   VitePWA({
       registerType: 'autoUpdate',
       manifest: {
         name: 'File Reader',
@@ -49,7 +49,7 @@ export default defineConfig({
           }
         ]
       }
-    })
+    }) */
   ],
   build: {
     outDir: '../dist/frontend'

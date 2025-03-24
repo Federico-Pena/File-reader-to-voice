@@ -1,6 +1,5 @@
 import path from 'node:path'
 import express from 'express'
-import type { Request, Response } from 'express'
 import cors from 'cors'
 import { apiConfig } from '../config/apiConfig.js'
 import { logger } from '../middlewares/logger.js'
@@ -22,11 +21,9 @@ app.use(cors(apiConfig.CORS_SETTINGS))
 app.use(logger)
 
 // Serve static files.
-const staticPath = path.join(__filename, '/frontend')
+const staticPath = path.join(__dirname, '/frontend')
 console.log('staticPath', staticPath)
-app.use('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.use('/', express.static(staticPath))
 
 // Use one router
 app.use(fileReader)
