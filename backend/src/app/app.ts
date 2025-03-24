@@ -22,15 +22,15 @@ app.use(cors(apiConfig.CORS_SETTINGS))
 app.use(logger)
 
 // Serve static files.
-const staticPath = path.join(cwd(), 'frontend', 'dist')
-// app.use('/', express.static(staticPath))
+const staticPath = path.join(cwd(), 'dist', 'frontend')
+app.use('/', express.static(staticPath))
 
 // Use one router
 app.use(fileReader)
 
 // Handle all other requests.
-/* app.get('*', (req: Request, res: Response) => {
+app.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(staticPath, 'index.html'))
-}) */
+})
 
 export default app
