@@ -30,7 +30,7 @@ app.use(fileReader)
 
 // Handle all other requests.
 app.use('*', (req, res) => {
-  res.sendFile(path.join(cwd(), 'dist/index.html'))
+  res.sendFile(path.join(staticPath, '/index.html'))
 })
 
 export default app
