@@ -2,7 +2,7 @@
 import esbuild from 'esbuild'
 const NODE_ENV = process.env.NODE_ENV
 
-if (NODE_ENV === 'development') {
+if (NODE_ENV === 'devexlopment') {
   const ctx = await esbuild.context({
     entryPoints: ['backend/src/**/*.ts'],
     format: 'esm',
@@ -24,7 +24,7 @@ if (NODE_ENV === 'development') {
   esbuild
     .build({
       entryPoints: ['backend/src/index.ts'],
-      outfile: 'dist/index.js',
+      outfile: 'dist/index.cjs',
       bundle: true,
       minify: true,
       platform: 'node',
