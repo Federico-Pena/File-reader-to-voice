@@ -29,7 +29,7 @@ if (NODE_ENV === 'development') {
       bundle: true,
       minify: true,
       platform: 'node',
-      format: 'cjs',
+      format: 'esm',
       banner: {
         js: 'import { createRequire } from "node:module"; const require = createRequire(import.meta.url);'
       }
