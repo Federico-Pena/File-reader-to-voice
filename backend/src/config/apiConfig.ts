@@ -21,7 +21,7 @@ const ACCEPTED_MIME_TYPES = {
   }
 }
 const CORS_SETTINGS = {
-  origin: [API_URL, 'http://localhost:5173'], // Allow specific origins
+  origin: [API_URL, 'http://localhost:5173', 'http://localhost:1234'], // Allow specific origins
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Control-Allow-Credentials']
   // credentials: true,

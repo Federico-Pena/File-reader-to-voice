@@ -18,14 +18,15 @@ app.use(express.json())
 // Enable CORS
 app.use(cors(apiConfig.CORS_SETTINGS))
 
-// Log HTTP requests format.
-app.use(logger)
-
 // Serve static files.
 const staticPath = path.join(cwd(), 'dist/frontend')
 console.log('staticPath', staticPath)
+// Log HTTP requests format.
+app.use(logger)
 
-app.use('/', express.static(staticPath))
+app.use('/', (req, res) => {
+  res.send('Hello World!')
+})
 
 // Use one router
 app.use(fileReader)
